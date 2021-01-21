@@ -164,13 +164,13 @@ test_datagen = ImageDataGenerator( rescale = 1.0/255. )
 
 # Flow training images in batches of 20 using train_datagen generator
 train_generator = train_datagen.flow_from_directory(train_dir,
-                                                    batch_size = 20,
+                                                    batch_size = 128,
                                                     class_mode = 'binary',
                                                     target_size = (150, 150))
 
 # Flow validation images in batches of 20 using test_datagen generator
 validation_generator =  test_datagen.flow_from_directory( validation_dir,
-                                                          batch_size  = 20,
+                                                          batch_size  = 32,
                                                           class_mode  = 'binary',
                                                           target_size = (150, 150))
 
@@ -184,9 +184,9 @@ callbacks = myCallback()
 history = model.fit(
             train_generator,
             validation_data = validation_generator,
-            steps_per_epoch = 100,
+            steps_per_epoch = 8,
             epochs = 100,
-            validation_steps = 50,
+            validation_steps = 8,
             verbose = 2,
             callbacks=[callbacks])
 
