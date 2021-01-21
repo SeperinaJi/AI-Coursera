@@ -3,7 +3,9 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+#source file The data for this exercise is available at: https://www.kaggle.com/datamunge/sign-language-mnist/home
 
+#Sign up and download to find 2 CSV files: sign_mnist_test.csv and sign_mnist_train.csv -- You will upload both of them using this button before you can continue.
 
 def get_data(filename):
     with open(filename) as training_file:
