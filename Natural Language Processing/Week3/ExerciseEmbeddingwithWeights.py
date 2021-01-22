@@ -111,10 +111,21 @@ print(len(embeddings_matrix))
 model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_size+1, embedding_dim, input_length=max_length, weights=[embeddings_matrix], trainable=False),
     # YOUR CODE HERE - experiment with combining different types, such as convolutions and LSTMs
+    tf.keras.layers.Conv1D(128, 5, activation='relu'),
+    tf.keras.layers.GlobalAveragePooling1D(),
+    tf.keras.layers.Dense(6, activation='relu'),
+    tf.keras.layers.Dense(1, activation='sigmoid')
 ])
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics='accuracy') #(# YOUR CODE HERE)
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics='accuracy')
 model.summary()
 
+training_sequences = np.array(training_sequences)
+
+training_labels = np.array(training_labels)
+
+test_sequences = np.array(test_sequences)
+
+test_labels = np.array(test_labels)
 num_epochs = 50
 history = model.fit(training_sequences, training_labels, epochs=num_epochs, validation_data=(test_sequences, test_labels), verbose=2)
 
@@ -127,8 +138,8 @@ import matplotlib.pyplot as plt
 # Retrieve a list of list results on training and test data
 # sets for each training epoch
 #-----------------------------------------------------------
-acc=history.history['acc']
-val_acc=history.history['val_acc']
+acc=history.history['accuracy']
+val_acc=history.history['val_accuracy']
 loss=history.history['loss']
 val_loss=history.history['val_loss']
 
